@@ -16,6 +16,9 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    {{-- FontAwesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -72,15 +75,20 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            <div class="container">
-              <div class="row">
-                <div class="col-xs-12 col-lg-1">
-                </div>
-              </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-md-3 col-lg-3">
+              <ul class="list-unstyled">
+                <li><a href="{{route('admin.index')}}"> <i class="fas fa-tachometer-alt fa-lg fa-fw"></i> Dashboard</a> </li>
+                <li><a href="{{route('admin.comics.index')}}"> <i class="fas fa-book-open"></i> Comics</a> </li>
+              </ul>
             </div>
-            @yield('content')
-        </main>
+            <main class="col-xs-12 col-md-9 col-lg-9 py-4">
+              @yield('content')
+            </main>
+          </div>
+        </div>
+
     </div>
 </body>
 </html>

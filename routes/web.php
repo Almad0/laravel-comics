@@ -13,10 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+Route::get('/', 'PageController@index')->name('homepage');
+// Route::resource('comics', 'ComicController');
+
+
+// Auth::routes(['register'->false]);
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth')->namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+  Route::get('/', 'HomeController@index')->name('index');
+  Route::resource('comics', 'ComicController');
+});
