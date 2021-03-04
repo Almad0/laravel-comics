@@ -3,12 +3,12 @@
 @section('content')
   <h1>Aggiungi un nuovo fumettyno</h1>
 
-  <form class="form" action="{{ route('admin.comics.store')}}" method="post" enctype="multipart/form-data">
+  <form class="form" action="{{ route('admin.comics.update', $comic)}}" method="post" enctype="multipart/form-data">
     @csrf
-
+    @method('PUT')
     <div class="form-group">
       <label for="title">Titolo del fumetto</label>
-      <input type="text" name="title" id="title">
+      <input type="text" name="title" id="title" value="{{$comic->title}}">
       <small id="titleHelper" class="form-text text-muted">Titolo Comics</small>
     </div>
     @error('title')
@@ -17,7 +17,7 @@
 
     <div class="form-group">
       <label for="description">Descrizione del fumetto</label>
-      <input type="text" name="description" id="description">
+      <input type="text" name="description" id="description" value="{{$comic->description}}" >
       <small id="descriptionHelper" class="form-text text-muted">Descrizione fumetto</small>
     </div>
     @error('description')
@@ -26,7 +26,7 @@
 
     <div class="form-group">
       <label for="price">Prezzo del fumetto</label>
-      <input type="text" name="price" id="price">
+      <input type="text" name="price" id="price" value="{{$comic->price}}">
       <small id="priceHelper" class="form-text text-muted">Prezzo Comics</small>
     </div>
     @error('price')

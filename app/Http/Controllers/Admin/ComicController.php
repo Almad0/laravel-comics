@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Comic;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ComicController extends Controller
 {
@@ -37,17 +39,22 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
+      $request['slug']=Str::slug($request->title);
       $data = $request->validate([
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
             'availability' => 'required',
-            'slug' => 'required'
+            'slug' => 'required',
+            'cover' => 'nullable | image | max:500'
         ]);
-      $comics = Comic::create($data);
+      $cover = Storage::put('cover_imgs', $request->cover);
+      $data['cover'] = $cover;
 
-      return redirect()->route('admin.comics.index', compact('comics'));
+      Comic::create($data);
+      $new_comic = Comic::orderBy('id', 'desc')->first();
 
+      return redirect()->route('admin.comics.index');
     }
 
     /**
@@ -58,7 +65,7 @@ class ComicController extends Controller
      */
     public function show(Comic $comic)
     {
-        //
+      return view('admin.comics.show', compact('comic'));
     }
 
     /**
@@ -69,7 +76,7 @@ class ComicController extends Controller
      */
     public function edit(Comic $comic)
     {
-        //
+    return view('admin.comics.edit', compact('comic'));
     }
 
     /**
@@ -81,7 +88,14 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
-        //
+
+      Storage::delete($comic->cover);
+      $data = $request->all();
+      $cover = Storage::put('cover_imgs', $request->cover);
+      $data['cover'] = $cover;
+      $comic -> update($data);
+
+      return redirect()->route('admin.comics.show', $comic);
     }
 
     /**
