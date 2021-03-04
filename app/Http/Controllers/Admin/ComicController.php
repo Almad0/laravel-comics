@@ -46,7 +46,7 @@ class ComicController extends Controller
             'price' => 'required',
             'availability' => 'required',
             'slug' => 'required',
-            'cover' => 'nullable | image | max:500'
+            'cover' => 'nullable | max:1000',
         ]);
       $cover = Storage::put('cover_imgs', $request->cover);
       $data['cover'] = $cover;
@@ -54,7 +54,7 @@ class ComicController extends Controller
       Comic::create($data);
       $new_comic = Comic::orderBy('id', 'desc')->first();
 
-      return redirect()->route('admin.comics.index');
+      return redirect()->route('admin.comics.index', $new_comic);
     }
 
     /**
@@ -106,6 +106,8 @@ class ComicController extends Controller
      */
     public function destroy(Comic $comic)
     {
-        //
+      Storage::delete($comic->cover);
+      $comic -> delete();
+      return redirect()->route('admin.comics.index');
     }
 }

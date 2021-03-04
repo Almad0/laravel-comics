@@ -19,7 +19,7 @@ class CreateComicsTable extends Migration
             $table->text('description');
             $table->float('price', 5, 2);
             $table->boolean('availability');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

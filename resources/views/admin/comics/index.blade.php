@@ -28,11 +28,11 @@
           <td>
             <a href="{{ route('admin.comics.show', ['comic'=>$value->slug])}}">Guarda</a>
             <a href="{{ route('admin.comics.edit', ['comic'=>$value->slug])}}">Modifica</a>
-            {{-- <form action="{{route('admin.comics.destroy', ['comic'=>$value->slug])}}" method="post">
+            <form action="{{route('admin.comics.destroy', ['comic'=>$value->slug])}}" method="post">
               @csrf
               @method('DELETE')
               <button type="submit" name="button">Elimina</button>
-            </form> --}}
+            </form>
 
           </td>
         </tr>
