@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-  <h1>Aggiungi un nuovo fumettyno</h1>
+  <h1>modifica il fumettyno</h1>
 
   <form class="form" action="{{ route('admin.comics.update', $comic)}}" method="post" enctype="multipart/form-data">
     @csrf
@@ -52,10 +52,15 @@
       <div class="alert alert-danger">{{ $message }}</div>
     @enderror --}}
 
+    <h2>Cover</h2>
+    @if($comic->cover)
+      <img src="{{asset('storage/' . $comic->cover)}}" alt="">
+    @endif
+
     <div class="form-group">
         <label for="cover">Cover</label>
         <input type="file" class="form-control-file" name="cover" id="cover" aria-describedby="coverImgHelper">
-        <small id="coverImgHelper" class="form-text text-muted">Adggiungi un imagine</small>
+        <small id="coverImgHelper" class="form-text text-muted">Aggiungi un immagine</small>
     </div>
     @error('cover')
         <div class="alert alert-danger">{{ $message }}</div>

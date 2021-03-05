@@ -10,4 +10,6 @@
     <img src="{{asset('storage/' . $comic->cover)}}" alt="">
   @endif
 
+  <a href="{{route('admin.comics.index')}}" class="btn btn-primary">Torna all'index</a>
+
 @endsection

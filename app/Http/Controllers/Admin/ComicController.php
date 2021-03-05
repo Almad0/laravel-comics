@@ -39,11 +39,16 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
+
+      if (!$request->hasFile('cover')) {
+        return redirect()->route('admin.comics.create')->with('success', 'Devi inserire la cover');
+      }
+
       $request['slug']=Str::slug($request->title);
       $data = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'price' => 'required',
+            'price' => 'required | numeric | max:999.99',
             'availability' => 'required',
             'slug' => 'required',
             'cover' => 'nullable | max:1000',
@@ -89,11 +94,35 @@ class ComicController extends Controller
     public function update(Request $request, Comic $comic)
     {
 
-      Storage::delete($comic->cover);
-      $data = $request->all();
-      $cover = Storage::put('cover_imgs', $request->cover);
-      $data['cover'] = $cover;
-      $comic -> update($data);
+      if($request->hasFile('cover')) {
+        Storage::delete($comic->cover);
+        $request['slug']=Str::slug($request->title);
+        $data = $request->validate([
+          'title' => 'required',
+          'description' => 'required',
+          'price' => 'required | numeric | max:999.99',
+          'availability' => 'required',
+          'slug' => 'required',
+          'cover' => 'nullable | max:1000',
+        ]);
+        // $data = $request->all();
+        $cover = Storage::put('cover_imgs', $request->cover);
+        $data['cover'] = $cover;
+        $comic -> update($data);
+      } else {
+        // $data = $request->all();
+        $request['slug']=Str::slug($request->title);
+        $data = $request->validate([
+          'title' => 'required',
+          'description' => 'required',
+          'price' => 'required | numeric | max:999.99',
+          'availability' => 'required',
+          'slug' => 'required',
+          'cover' => 'nullable | max:1000',
+        ]);
+        $comic -> update($data);
+      }
+
 
       return redirect()->route('admin.comics.show', $comic);
     }

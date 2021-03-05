@@ -8,7 +8,7 @@
 
     <div class="form-group">
       <label for="title">Titolo del fumetto</label>
-      <input type="text" name="title" id="title">
+      <input type="text" name="title" id="title" value="{{old('title')}}">
       <small id="titleHelper" class="form-text text-muted">Titolo Comics</small>
     </div>
     @error('title')
@@ -17,7 +17,7 @@
 
     <div class="form-group">
       <label for="description">Descrizione del fumetto</label>
-      <input type="text" name="description" id="description">
+      <input type="text" name="description" id="description" value="{{old('description')}}">
       <small id="descriptionHelper" class="form-text text-muted">Descrizione fumetto</small>
     </div>
     @error('description')
@@ -26,7 +26,7 @@
 
     <div class="form-group">
       <label for="price">Prezzo del fumetto</label>
-      <input type="text" name="price" id="price">
+      <input type="text" name="price" id="price" value="{{old('price')}}">
       <small id="priceHelper" class="form-text text-muted">Prezzo Comics</small>
     </div>
     @error('price')
@@ -55,8 +55,16 @@
     <div class="form-group">
         <label for="cover">Cover</label>
         <input type="file" class="form-control-file" name="cover" id="cover" aria-describedby="coverImgHelper">
-        <small id="coverImgHelper" class="form-text text-muted">Adggiungi un imagine</small>
+        <small id="coverImgHelper" class="form-text text-muted">Aggiungi un immagine</small>
     </div>
+    <div class="col-sm-12">
+      @if(session()->get('success'))
+        <div class="alert alert-success">
+          {{ session()->get('success') }}
+        </div>
+      @endif
+    </div>
+
     @error('cover')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
