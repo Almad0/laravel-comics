@@ -6,3 +6,66 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+//scss code personal
+// @import "./partials/common";
+@import "./partials/mixin";
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header{
+  .miniNav{
+    background-color: #0282F9;
+    height: 30px;
+    @include flex(row, space-between, center);
+    .right{
+      width: 20%;
+      @include flex(row, space-between, center);
+      img:first-of-type{
+        background-color: white;
+      }
+      img{
+        height: 20px;
+      }
+    }
+  }
+  .maxiNav{
+    height: 80px;
+    @include flex(row, space-between, center);
+    .mainlogo{
+      img{
+        height: 40px;
+      }
+    }
+    .mainMenu{
+      ul{
+        @include flex(row, space-between, center);
+      }
+    }
+    .mainSearch{
+      text-align: right;
+    }
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// fine

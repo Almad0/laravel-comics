@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
+
+
 @section('content')
-  <h1>porcogiuda funzionaaaaaaa</h1>
 
   @include('layouts.partials.header')
 
-  @include('layouts.partials.main')
+  <h1>QUA CI VANNO LE ZEZIONI DEI FUMETTI ON LE COSE BLUBBLà</h1>
 
   @include('layouts.partials.footer')
 
